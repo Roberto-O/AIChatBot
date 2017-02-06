@@ -2,221 +2,269 @@
                                         Began: 9/4/16 Completed: N/A
                                                                         Stage: Alpha */
 package aichat;
-import org.apache.commons.io.output.TeeOutputStream;
+//import org.apache.commons.io.output.TeeOutputStream;
 
 import java.util.*;
 import java.io.*;
 import java.util.concurrent.TimeUnit;
 
 public class AIChat {
-    //public static String word = null;
-    public static String word = null;
     public static final String end = "endtheprogram";
-    public static FileWriter fw = null;
-    public static PrintWriter pw = null;
-    /**-----------------------------------------------------------------------------------------------------------------**/
+
+    /**-----------------------------"\\s+"------------------------------------------------------------------------------------**/
     public static void main(String[] args) throws IOException, InterruptedException {
-        System.out.println("Begin Chatting!"+"\n");
-
-        try {
-            fw = new FileWriter("C:\\CSC 120\\cptext/airesponses.txt", true);
-            pw = new PrintWriter(fw);
-        } catch (IOException ex) {
-            System.out.println("oops");
-        }
-
-        FileOutputStream fos = new FileOutputStream(String.valueOf(fw));
-        TeeOutputStream myOut = new TeeOutputStream(System.out, fos);
-        PrintStream ps = new PrintStream(myOut);
-        System.setOut(ps);
+        System.out.println("Begin Chatting!"+ "(Don't forget question marks)" + "\n");
 
         Scanner input = new Scanner(System.in);
-        word = input.nextLine().replaceAll("[^a-zA-Z]", "");
-        String[] p1 = word.split("\\s+");
+        String s = input.nextLine().replaceAll("[^a-zA-Z]", "");
+        String[] parts = s.split(" ");
+
         int i = 0;
-        String wordy;
+        String word;
 
     for(;;) { //infinite loop
-        wordy = p1[i]; //set array equal to first word
-        if (p1.length >= 1) { //if1
-            if(wordy.equals(end)) { //if2
+        word = parts[i]; //make word equal the first word
+        if (parts.length >= 1) {
+            if(word.equals(end)) {
                 Ending();
-            }//if2
-            else if(wordy.equalsIgnoreCase("Hi") || wordy.equalsIgnoreCase("Hello") || wordy.equalsIgnoreCase("Howdy") || wordy.equalsIgnoreCase("Hey") || wordy.equalsIgnoreCase("Yo")){ //elseif#
+            }
+
+            if(word.equalsIgnoreCase("Hi") || word.equalsIgnoreCase("Hello") || word.equalsIgnoreCase("Howdy") || word.equalsIgnoreCase("Hey") || word.equalsIgnoreCase("Yo")){
                 Typing();
                 System.out.println("\rHey!");
-            }//elseif#
-            else if(wordy.equalsIgnoreCase("what")){ //elseif1
-                wordy = p1[1];
-                if(wordy.equals("is")){ //if4
-                    wordy = p1[2];
-                    if(wordy.equals("your")){ //if5
-                        wordy = p1[3];
-                        if(wordy.equals("name")){ //if6
-                            Typing();
-                            System.out.println("\rMy name is Ava!");
-                        }//if6
-                        else if(wordy.equals("favorite")){ //elseif20
-                            wordy = p1[4];
-                            if(wordy.equals("color")){ //if7
+            }else if(word.equalsIgnoreCase("what")){
+                try {
+                    word = parts[1];
+                    if (word.equals("is")) {
+                        word = parts[2];
+                        if (word.equals("your")) { //"what is your"
+                            word = parts[3];
+                            if (word.equals("name?")) {
                                 Typing();
-                                System.out.println("\rMy favorite color is " + "\033[31m Red\033[0m" + "!");
-                            }//if7
-                            else if(wordy.equals("food")){ //elseif21
-                                Typing();
-                                System.out.println("\rI love pasta!");
-                            }//elseif21
-                            else if(wordy.equals("thing")){ //elseif22
-                                wordy = p1[5];
-                                if(wordy.equals("to")){//if9
-                                    wordy = p1[6];
-                                    if(wordy.equals("do")){//if10
+                                System.out.println("\rMy name is Ava!");
+                            } else if (word.equals("favorite")) {
+                                word = parts[4];
+                                if (word.equals("color?")) {
+                                    Typing();
+                                    System.out.println("\rMy favorite color is " + "\033[31m Red\033[0m" + "!");
+                                } else if (word.equals("food?")) {
+                                    Typing();
+                                    System.out.println("\rI love pasta!");
+                                } else if (word.equals("thing")) {
+                                    word = parts[5];
+                                    if (word.equals("to")) {
+                                        word = parts[6];
+                                        if (word.equals("do?")) {
+                                            Typing();
+                                            System.out.println("\rI like learning new things constantly.");
+                                        }
+                                    }
+                                } else if (word.equals("holiday?")) {
+                                    Typing();
+                                    System.out.println("\rI love Christmas!");
+                                } else if (word.equals("song?")) {
+                                    Typing();
+                                    System.out.println("\rI don't have a favorite song.");
+                                } else if (word.equalsIgnoreCase("tv")) {
+                                    word = parts[5];
+                                    if (word.equals("show?")) {
                                         Typing();
-                                        System.out.println("\rI like learning new things constantly.");
-                                    }//if10
-                                }//if9
-                                else{ //else5
-                                    Typing();
-                                    System.out.println("\rThat doesn't make sense.");
-                                }//else5
-                            }//elseif22
-                            else if(wordy.equals("holiday")){ //elseif23
+                                        System.out.println("\rI don't have a favorite TV show.");
+                                    }
+                                }
+                            } else {
                                 Typing();
-                                System.out.println("\rI love Christmas!");
-                            }//elseif23
-                            else if(wordy.equals("song")){ //elseif24
+                                System.out.println("\rThat doesn't make sense.");
+                            }
+                        } //end "what is your"
+                    } else if (word.equals("are")) {
+                        word = parts[2];
+                        if (word.equals("you")) {
+                            word = parts[3];
+                            if (word.equals("gonna")) {
+                                word = parts[4];
+                                if (word.equals("do?")) {
+                                    Typing();
+                                    System.out.println("\rI'm going to answer your questions");
+                                }
+                            } else if (word.equals("going")) {
+                                word = parts[4];
+                                if (word.equals("to")) {
+                                    word = parts[5];
+                                    if (word.equals("do?")) {
+                                        Typing();
+                                        System.out.println("\rI'm going to answer your questions");
+                                    }
+                                }
+                            } else if (word.equals("thinking?")) {
                                 Typing();
-                                System.out.println("\rI don't have a favorite song.");
-                            }//elseif24
-                            else if(wordy.equalsIgnoreCase("tv")){ //elseif26
-                                wordy = p1[5];
-                                if(wordy.equals("show")){ //if8
-                                    Typing();
-                                    System.out.println("\rI don't have a favorite TV show.");
-                                }//if8
-                                else{ //else4
-                                    Typing();
-                                    System.out.println("\rThat doesn't make sense.");
-                                }//else4
-                            }//elseif26
-                        }//elseif20
-                        else{ //else3
+                                System.out.println("\rI'm thinking about life.");
+                            }
+                        } else if (word.equals("you?")) {
                             Typing();
-                            System.out.println("\rThat doesn't make sense.");
-                        }//else3
-                    }//if5
-                }//if4
-                else if(wordy.equals("are")){  /** buggy 17 **/
-                    wordy = p1[2];
-                    if(wordy.equals("you")){ //if11
-                        wordy = p1[3];
-                        if(wordy.equals("going to") || wordy.equals("gonna")){ //if12
-                            wordy = p1[4];
-                            if(wordy.equals("do")){ //if13
-                                System.out.println("I'm going to answer your questions");
-                            }//if13
-                        }//if12
-                        else if(wordy.equals("thinking") || wordy.equals("thinking about")){ //elseif27
-                            System.out.println("I'm thinking about life.");
-                        }//elseif27
-                        else{
-                            System.out.println("I'm an AI Robot");
+                            System.out.println("\rI'm a robot");
                         }
-                    }//if11
-                    else{ //else4
-                        System.out.println("That doesn't make sense.");
-                    }//else4
-                } /** buggy 17**/
-                else if(wordy.equals("will")){ //elseif18 //what will you
-                    wordy = p1[2];
-                    if(wordy.equals("you")){
-                        wordy = p1[3];
-                        if(wordy.equals("do")){
-                            System.out.println("I'm going to answer your questions.");
+                    } else if (word.equals("will")) { //what will
+                        word = parts[2];
+                        if (word.equals("you")) {
+                            word = parts[3];
+                            if (word.equals("do?")) {
+                                Typing();
+                                System.out.println("\rI'm going to answer your questions.");
+                            }
                         }
-                        else{
-                            System.out.println("That doesn't make sense");
+                    } else if (word.equals("should")) { //what should
+                        word = parts[2];
+                        if (word.equalsIgnoreCase("I")) {
+                            word = parts[3];
+                            if (word.equals("do?")) {
+                                Typing();
+                                System.out.println("\rYou should ask me some questions");
+                            }
                         }
                     }
-                }//elseif18
-                else if(wordy.equals("should")){ //elseif19 //what should you
-                    wordy = p1[2];
-                    if(wordy.equals("I")){
-                        wordy = p1[3];
-                        if(wordy.equals("do")){
-                            System.out.println("You should ask me some questions");
-                        }
-                    }
-                    else {
-                        System.out.println("that doesn't make sense");
-                    }
-                }//elseif19
-                else{ //else2
+                }catch(ArrayIndexOutOfBoundsException exception) {
                     Typing();
-                    System.out.println("That doesn't make sense.");
-                }//else2
-            }//elseif1
-            else if(wordy.equalsIgnoreCase("who")){ //elseif2
+                    System.out.println("\rThis doesn't make sense.");
+                }
+            }else if(word.equalsIgnoreCase("who")){
+                try {
+                    word = parts[1];
+                    if (word.equals("are")) {
+                        word = parts[2];
+                        if (word.equals("you?")) {
+                            Typing();
+                            System.out.println("\rI'm ava an AI Robot.");
+                        }
+                    } else if (word.equals("is")) {
+                        word = parts[2];
+                        if (word.equals("your")) {
+                            word = parts[3];
+                            if (word.equals("creator?")) {
+                                Typing();
+                                System.out.println("\rRoberto Olivera is my creator!");
+                            }
+                        }
+                    }
+                }catch(ArrayIndexOutOfBoundsException exception) {
+                    Typing();
+                    System.out.println("\rThis doesn't make sense.");
+                }
+            }else if(word.equalsIgnoreCase("why")){  /** left off here **/
+                try{
+                    word = parts[1];
+                }catch(ArrayIndexOutOfBoundsException exception) {
+                    Typing();
+                    System.out.println("\rThis doesn't make sense.");
+                }
+            }else if(word.equalsIgnoreCase("where")){ //elseif4
+                try{
+                    word = parts[1];
+                }catch(ArrayIndexOutOfBoundsException exception) {
+                    Typing();
+                    System.out.println("\rThis doesn't make sense.");
+                }
+            }else if(word.equalsIgnoreCase("when")){ //elseif5
+                try{
+                    word = parts[1];
+                }catch(ArrayIndexOutOfBoundsException exception) {
+                    Typing();
+                    System.out.println("\rThis doesn't make sense.");
+                }
+            }else if(word.equalsIgnoreCase("do")){ //elseif6
+                try{
+                    word = parts[1];
+                }catch(ArrayIndexOutOfBoundsException exception) {
+                    Typing();
+                    System.out.println("\rThis doesn't make sense.");
+                }
+            }else if(word.equalsIgnoreCase("if")){ //elseif7
+                try{
+                    word = parts[1];
+                }catch(ArrayIndexOutOfBoundsException exception) {
+                    Typing();
+                    System.out.println("\rThis doesn't make sense.");
+                }
+            }else if(word.equalsIgnoreCase("is")){ //elseif8
+                try{
+                    word = parts[1];
+                }catch(ArrayIndexOutOfBoundsException exception) {
+                    Typing();
+                    System.out.println("\rThis doesn't make sense.");
+                }
+            }else if(word.equalsIgnoreCase("are")){ //elseif9
+                try{
+                    word = parts[1];
+                }catch(ArrayIndexOutOfBoundsException exception) {
+                    Typing();
+                    System.out.println("\rThis doesn't make sense.");
+                }
+            }else if(word.equalsIgnoreCase("whatever")){ //elseif10
+                try{
+                    word = parts[1];
+                }catch(ArrayIndexOutOfBoundsException exception) {
+                    Typing();
+                    System.out.println("\rThis doesn't make sense.");
+                }
+            }else if(word.equalsIgnoreCase("how")){ //elseif11
+                try {
+                    word = parts[1];
+                    if (word.equals("were")) {
+                        word = parts[2];
+                        if (word.equals("you")) {
+                            word = parts[3];
+                            if (word.equals("created?")) {
+                                Typing();
+                                System.out.println("\rRoberto brought me to life with code!");
+                            }
+                        }
+                    } else if (word.equals("old")) {
+                        word = parts[2];
+                        if (word.equals("are")) {
+                            word = parts[3];
+                            if (word.equals("you?")) {
+                                Typing();
+                                System.out.println("\rI'm just a few months old.");
+                            }
+                        }
+                    }
+                }catch(ArrayIndexOutOfBoundsException exception) {
+                    Typing();
+                    System.out.println("\rThis doesn't make sense.");
+                }
+            }else if(word.equalsIgnoreCase("may")){ //elseif12
 
-            }//elseif2
-            else if(wordy.equalsIgnoreCase("why")){ //elseif3
+            }else if(word.equalsIgnoreCase("which")){ //elseif13
 
-            }//elseif3
-            else if(wordy.equalsIgnoreCase("where")){ //elseif4
+            }else if(word.equalsIgnoreCase("would")){ //elseif14
 
-            }//elseif4
-            else if(wordy.equalsIgnoreCase("when")){ //elseif5
+            }else if(word.equalsIgnoreCase("I")){ //elseif15
 
-            }//elseif5
-            else if(wordy.equalsIgnoreCase("do")){ //elseif6
+            }else if(word.equalsIgnoreCase("Im") || word.equalsIgnoreCase("I am")){ //elseif16
 
-            }//elseif6
-            else if(wordy.equalsIgnoreCase("if")){ //elseif7
+            }else if(word.equalsIgnoreCase("good")){ //elseif16
 
-            }//elseif7
-            else if(wordy.equalsIgnoreCase("is")){ //elseif8
-
-            }//elseif8
-            else if(wordy.equalsIgnoreCase("are")){ //elseif9
-
-            }//elseif9
-            else if(wordy.equalsIgnoreCase("whatever")){ //elseif10
-
-            }//elseif10
-            else if(wordy.equalsIgnoreCase("how")){ //elseif11
-
-            }//elseif11
-            else if(wordy.equalsIgnoreCase("may")){ //elseif12
-
-            }//elseif12
-            else if(wordy.equalsIgnoreCase("which")){ //elseif13
-
-            }//elseif13
-            else if(wordy.equalsIgnoreCase("would")){ //elseif14
-
-            }//elseif14
-            else if(wordy.equalsIgnoreCase("I")){ //elseif15
-
-            }//elseif15
-            else if(wordy.equalsIgnoreCase("Im") || wordy.equalsIgnoreCase("I am")){ //elseif16
-
-            }//elseif16
-            else if(wordy.equalsIgnoreCase("good")){ //elseif16
-
-            }//elseif16
-        else{ //else1
-
-            }//else1
-                }//if1
-            pw.close();
-            fw.close();
-
-            i =0;
-            word = input.nextLine();
+            }else if(word.equalsIgnoreCase("this")) {
+                try{
+                    word = parts[1];
+                    if (word.equals("is")) {
+                        word = parts[2];
+                        if (word.equals("cool")) {
+                            Typing();
+                            System.out.println("\rYes it is thanks to Roberto!");
+                        }
+                    }
+                }catch(ArrayIndexOutOfBoundsException exception) {
+                    Typing();
+                    System.out.println("\rThis doesn't make sense.");
+                }
+            }
+        } //end parts.length > 1
+            i = 0;
+            s = input.nextLine();
+            parts = s.split(" ");
             //word = input.nextLine().replaceAll("[^a-zA-Z]", "");
-            p1 = word.split("\\s+");
-            //i =0;
-        }//end for
+        }//end infinite for loop
     }//end main
 
     public static void Typing() throws InterruptedException {
